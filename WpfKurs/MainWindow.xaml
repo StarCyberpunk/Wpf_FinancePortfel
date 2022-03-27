@@ -1,0 +1,42 @@
+﻿<Window x:Class="WpfKurs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfKurs"
+        mc:Ignorable="d"
+        Title="Подбор портфеля инвестиций" Height="600" Width="1200" Background="DarkSeaGreen">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Name="Output" Background="Gray" HorizontalAlignment="Left" Height="490" Margin="725,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="393" IsEnabled="False"/>
+        <TextBox Name="FIO" HorizontalAlignment="Left" Margin="135,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="210" Height="41" />
+        <TextBox Name="Old" HorizontalAlignment="Left" Height="19" Margin="184,169,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
+        <TextBox Name="Sum" HorizontalAlignment="Left" Height="21" Margin="184,223,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
+        <TextBox Name="Social_stasus" HorizontalAlignment="Left" Height="191" Margin="368,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="321"/>
+        <DockPanel VerticalAlignment="Top" Margin="0,290,831,0" HorizontalAlignment="Right" Width="256" Height="20">
+            <TextBox Name="Risk" Text="{Binding ElementName=slValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" />
+            <Slider Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="slValue" Height="39" Width="200"  />
+        </DockPanel>
+        <Button x:Name="GoProgress" Content="Составить портфель" HorizontalAlignment="Left" Margin="446,303,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="GoProgress_Click"/>
+        <Label Content="Ф.И.О" HorizontalAlignment="Left" Margin="221,58,0,0" VerticalAlignment="Top" Width="42" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Возраст(лет)" HorizontalAlignment="Left" Margin="198,130,0,0" VerticalAlignment="Top" Width="84" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Сумма инвестиций(р)" HorizontalAlignment="Left" Margin="172,193,0,0" VerticalAlignment="Top" Width="128" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Риск(%)" HorizontalAlignment="Left" Margin="214,260,0,0" VerticalAlignment="Top" Width="52" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Доходность(%)" HorizontalAlignment="Left" Margin="194,333,0,0" VerticalAlignment="Top" Width="92" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Срок инвестиций(мес)" HorizontalAlignment="Left" Margin="160,401,0,0" VerticalAlignment="Top" Width="140" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <DockPanel VerticalAlignment="Top" Margin="0,363,832,0" HorizontalAlignment="Right" Width="256" Height="20">
+            <TextBox Name="Doxod" Text="{Binding Value, ElementName=slValue1, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24" />
+            <Slider Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200" />
+        </DockPanel>
+        <DockPanel VerticalAlignment="Top" Margin="0,431,830,0" HorizontalAlignment="Right" Width="256" Height="20">
+            <TextBox Name="Srok" Text="{Binding Value, ElementName=slValue2, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24"  />
+            <Slider Maximum="24" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slValue2" Height="39" Width="200" />
+        </DockPanel>
+        <Label Content="Социальный статус,семейное положение,общая задолжность " HorizontalAlignment="Left" Margin="352,45,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ваш портфель" HorizontalAlignment="Left" Margin="761,34,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Update" Content="Обновить данные" HorizontalAlignment="Left" Margin="446,414,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="Update_Click"/>
+
+    </Grid>
+</Window>
