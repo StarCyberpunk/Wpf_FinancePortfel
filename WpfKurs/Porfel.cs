@@ -15,6 +15,19 @@ namespace WpfKurs
         int doxod, 
         int srok)
         {
+            List<Akcia> AkciaList = new List<Akcia>();
+           foreach (Akcia a in Akcii)
+            {
+                double riskAkcii = a.RiskScore;
+                double stoimosti = 0;
+                double recomdation = a.financialData.recommendationMean.raw;
+
+                if (riskAkcii < risk&money>stoimosti*2&recomdation<2.5)
+                {
+                    AkciaList.Add(a);
+                }
+
+            }
 
         }
     }

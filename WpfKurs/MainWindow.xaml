@@ -37,6 +37,9 @@
         <Label Content="Социальный статус,семейное положение,общая задолжность " HorizontalAlignment="Left" Margin="352,45,0,0" VerticalAlignment="Top"/>
         <Label Content="Ваш портфель" HorizontalAlignment="Left" Margin="761,34,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Update" Content="Обновить данные" HorizontalAlignment="Left" Margin="446,414,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="Update_Click"/>
+        <CheckBox x:Name="AkciiChec" Content="Акции " HorizontalAlignment="Left" Margin="210,495,0,0" VerticalAlignment="Top" IsChecked="True" Checked="Akcii_Checked"/>
+        <CheckBox x:Name="KriptaChec" Content="Криптовалюта" HorizontalAlignment="Left" Margin="211,515,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox x:Name="FondAndMetalChec" Content="Фонды и металы" HorizontalAlignment="Left" Margin="210,535,0,0" VerticalAlignment="Top" IsChecked="True"/>
 
     </Grid>
 </Window>

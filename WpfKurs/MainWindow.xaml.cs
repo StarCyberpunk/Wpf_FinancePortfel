@@ -27,6 +27,7 @@ namespace WpfKurs
         List<Kripta> Kripta = new List<Kripta>();
         List<Kripta> KriptaRisk = new List<Kripta>();
         List<Kripta> Zerorisk = new List<Kripta>();
+        //Курс доллара
         public MainWindow()
         {
             InitializeComponent();
@@ -36,12 +37,29 @@ namespace WpfKurs
         private void GoProgress_Click(object sender, RoutedEventArgs e)
         {
            string name= FIO.Text;
-           int old =Int32.Parse(Old.Text);
-            int money = Int32.Parse(Sum.Text);
+            int money = 0;
+            int old = 0;
+            try
+            {
+                 old = Int32.Parse(Old.Text);
+                 money = Int32.Parse(Sum.Text);
+            }
+            catch
+            {
+                throw new Exception();
+            }
+           
             int risk = Int32.Parse(Risk.Text);
             int doxod = Int32.Parse(Doxod.Text);
             int srok = Int32.Parse(Srok.Text);
-            Porfel na=new Porfel(Akcii,Kripta,KriptaRisk,Zerorisk,name,old,money,risk,doxod,srok);
+            if (risk != 0 & doxod != 0 && srok != 0&money!=0)
+            {
+                Porfel na = new Porfel(Akcii, Kripta, KriptaRisk, Zerorisk, name, old, money, risk, doxod, srok);
+            }
+            else
+            {
+                //вывод некоректных данныъ
+            }
         }
         //TODO Проверка на нулевые и на неправильные данные 
 
@@ -229,7 +247,7 @@ namespace WpfKurs
                                 break;
                             case 3:
                                 {
-                                    ak.RiskScore = otv.quoteSummary.result[0].esgScores.totalEsg.raw;
+                                    ak.RiskScore = otv.quoteSummary.result[0].esgScores.totalEsg.raw/2;
                                     ak.peergroups = otv.quoteSummary.result[0].esgScores.peerGroup;
                                 }
                                 break;
@@ -307,6 +325,9 @@ namespace WpfKurs
             return false;
         }
 
-        
+        private void Akcii_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
