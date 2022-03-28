@@ -28,7 +28,7 @@
         <Label Content="Срок инвестиций(мес)" HorizontalAlignment="Left" Margin="160,401,0,0" VerticalAlignment="Top" Width="140" Height="25" RenderTransformOrigin="0.476,0.522"/>
         <DockPanel VerticalAlignment="Top" Margin="0,363,832,0" HorizontalAlignment="Right" Width="256" Height="20">
             <TextBox Name="Doxod" Text="{Binding Value, ElementName=slValue1, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24" />
-            <Slider Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200" />
+            <Slider Maximum="95" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200" />
         </DockPanel>
         <DockPanel VerticalAlignment="Top" Margin="0,431,830,0" HorizontalAlignment="Right" Width="256" Height="20">
             <TextBox Name="Srok" Text="{Binding Value, ElementName=slValue2, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24"  />

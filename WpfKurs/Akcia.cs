@@ -8,18 +8,34 @@ namespace WpfKurs
 {
     public class Akcia
     {
-        public Financialdata financialData { get; set; }
+        
+        public double CurrentPrice { get; set; }
+        public double recomendationMean { get; set; }
+        public double NormaPriboli { get; set; }
+        public double TargetPriceHigh { get; set; }
+        public double TargetPriceLow { get; set; }
+        public double TargetPriceMean { get; set; }
+        public double TargetPriceMedian { get; set; }
         public string symbol { get; set; }
         public Recommendedsymbol[] recommendedSymbols { get; set; }
         public Recommendationtrend recommendationTrend { get; set; }
         public string peergroups { get; set; }
         public double RiskScore { get; set; }
+        public int[] timestamp { get; set; }
+        public Meta meta { get; set; }
+        public Indicators indicators { get; set; }
     }
     #region GetDate
     public class Rootobject
     {
         public Quotesummary quoteSummary { get; set; }
         public Finance finance { get; set; }
+        public Chart chart { get; set; }
+    }
+    public class Chart
+    {
+        public Result[] result { get; set; }
+        public object error { get; set; }
     }
 
     public class Quotesummary
@@ -38,6 +54,10 @@ namespace WpfKurs
         public Recommendationtrend recommendationTrend { get; set; }
         public Esgscores esgScores { get; set; }
         public Summarydetail summaryDetail { get; set; }
+        public Meta meta { get; set; }
+        public int[] timestamp { get; set; }
+        public Events events { get; set; }
+        public Indicators indicators { get; set; }
     }
 
     public class Financialdata
@@ -78,7 +98,101 @@ namespace WpfKurs
         public Result[] result { get; set; }
         public object error { get; set; }
     }
+    #region charts
+    public class Meta
+    {
+        public string currency { get; set; }
+        public string symbol { get; set; }
+        public string exchangeName { get; set; }
+        public string instrumentType { get; set; }
+        public int firstTradeDate { get; set; }
+        public int regularMarketTime { get; set; }
+        public int gmtoffset { get; set; }
+        public string timezone { get; set; }
+        public string exchangeTimezoneName { get; set; }
+        public float regularMarketPrice { get; set; }
+        public float chartPreviousClose { get; set; }
+        public int priceHint { get; set; }
+        public Currenttradingperiod currentTradingPeriod { get; set; }
+        public string dataGranularity { get; set; }
+        public string range { get; set; }
+        public string[] validRanges { get; set; }
+    }
 
+    public class Currenttradingperiod
+    {
+        public Pre pre { get; set; }
+        public Regular regular { get; set; }
+        public Post post { get; set; }
+    }
+
+    public class Pre
+    {
+        public string timezone { get; set; }
+        public int start { get; set; }
+        public int end { get; set; }
+        public int gmtoffset { get; set; }
+    }
+
+    public class Regular
+    {
+        public string timezone { get; set; }
+        public int start { get; set; }
+        public int end { get; set; }
+        public int gmtoffset { get; set; }
+    }
+
+    public class Post
+    {
+        public string timezone { get; set; }
+        public int start { get; set; }
+        public int end { get; set; }
+        public int gmtoffset { get; set; }
+    }
+
+    public class Events
+    {
+        public Dividends dividends { get; set; }
+    }
+
+    public class Dividends
+    {
+        public _1636119000 _1636119000 { get; set; }
+        public _1643985000 _1643985000 { get; set; }
+    }
+
+    public class _1636119000
+    {
+        public float amount { get; set; }
+        public int date { get; set; }
+    }
+
+    public class _1643985000
+    {
+        public float amount { get; set; }
+        public int date { get; set; }
+    }
+
+    public class Indicators
+    {
+        public Quote[] quote { get; set; }
+        public Adjclose[] adjclose { get; set; }
+    }
+
+    public class Quote
+    {
+        public float[] low { get; set; }
+        public float[] open { get; set; }
+        public float[] high { get; set; }
+        public float[] close { get; set; }
+        public int[] volume { get; set; }
+    }
+
+    public class Adjclose
+    {
+        public float[] adjclose { get; set; }
+    }
+    #endregion
 
     #region recomend
     public class Recommendedsymbol
