@@ -17,7 +17,7 @@
         <TextBox Name="Social_stasus" HorizontalAlignment="Left" Height="191" Margin="368,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="321"/>
         <DockPanel VerticalAlignment="Top" Margin="0,290,831,0" HorizontalAlignment="Right" Width="256" Height="20">
             <TextBox Name="Risk" Text="{Binding ElementName=slValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" />
-            <Slider Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="slValue" Height="39" Width="200"  />
+            <Slider Maximum="80" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="slValue" Height="39" Width="200"  />
         </DockPanel>
         <Button x:Name="GoProgress" Content="Составить портфель" HorizontalAlignment="Left" Margin="446,303,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="GoProgress_Click"/>
         <Label Content="Ф.И.О" HorizontalAlignment="Left" Margin="221,58,0,0" VerticalAlignment="Top" Width="42" Height="25" RenderTransformOrigin="0.476,0.522"/>
@@ -37,9 +37,6 @@
         <Label Content="Социальный статус,семейное положение,общая задолжность " HorizontalAlignment="Left" Margin="352,45,0,0" VerticalAlignment="Top"/>
         <Label Content="Ваш портфель" HorizontalAlignment="Left" Margin="761,34,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Update" Content="Обновить данные" HorizontalAlignment="Left" Margin="446,414,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="Update_Click"/>
-        <CheckBox x:Name="AkciiChec" Content="Акции " HorizontalAlignment="Left" Margin="210,495,0,0" VerticalAlignment="Top" IsChecked="True" Checked="Akcii_Checked"/>
-        <CheckBox x:Name="KriptaChec" Content="Криптовалюта" HorizontalAlignment="Left" Margin="211,515,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="FondAndMetalChec" Content="Фонды и металы" HorizontalAlignment="Left" Margin="210,535,0,0" VerticalAlignment="Top" IsChecked="True"/>
 
     </Grid>
 </Window>

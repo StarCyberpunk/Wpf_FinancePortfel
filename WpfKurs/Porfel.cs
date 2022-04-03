@@ -9,6 +9,7 @@ namespace WpfKurs
     internal class Porfel
     {
         public static List<Akcia> AkciaList;
+        public static List<Kripta> RiskZero;
         public Porfel(List<Akcia> Akcii, List<Kripta> Kripta, List<Kripta> KriptaRisk, List<Kripta> Zerorisk,string name ,
         int old ,
         int money ,
@@ -17,32 +18,43 @@ namespace WpfKurs
         int srok,double usd)
         {
             AkciaList = new List<Akcia>();
-
+            RiskZero = new List<Kripta>();
             foreach (Akcia a in Akcii)
             {
-                
+
                 double riskAkcii = a.RiskScore;
                 double stoimosti = 0;
-                if(a.meta != null) { 
-                if (a.meta.currency == "USD")
-                {
-                    stoimosti = a.CurrentPrice*usd;
-                    a.CurrentPrice *= usd;
-                }
-                }
-                else
-                {
-                     stoimosti = a.CurrentPrice;
-                }
-                
                 double recomdation = a.recomendationMean;
 
-                if (riskAkcii < risk&money>stoimosti*2&recomdation<2.5)
+                if (riskAkcii < risk & money > stoimosti * 2 & recomdation < 2.5)
                 {
                     AkciaList.Add(a);
                 }
 
             }
+            foreach (Kripta k in Zerorisk)
+            {
+
+                
+
+            }
+
+
+            if (risk < 25 )
+            {
+
+            }
+            if (risk>25 &risk < 50)
+            {
+                
+
+            }
+            else
+            {
+
+            }
+
+            
            
 
 
