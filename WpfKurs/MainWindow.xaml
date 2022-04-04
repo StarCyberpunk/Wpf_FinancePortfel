@@ -11,21 +11,17 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBox Name="Output" Background="Gray" HorizontalAlignment="Left" Height="490" Margin="725,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="393" IsEnabled="False"/>
-        <TextBox Name="FIO" HorizontalAlignment="Left" Margin="135,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="210" Height="41" />
-        <TextBox Name="Old" HorizontalAlignment="Left" Height="19" Margin="184,169,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
-        <TextBox Name="Sum" HorizontalAlignment="Left" Height="21" Margin="184,223,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
-        <TextBox Name="Social_stasus" HorizontalAlignment="Left" Height="191" Margin="368,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="321"/>
-        <DockPanel VerticalAlignment="Top" Margin="0,290,831,0" HorizontalAlignment="Right" Width="256" Height="20">
-            <TextBox Name="Risk" Text="{Binding ElementName=slValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" />
-            <Slider Maximum="80" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="slValue" Height="39" Width="200"  />
-        </DockPanel>
+        <TextBox Name="FIO" HorizontalAlignment="Left" Margin="135,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="210" Height="23" />
+        <TextBox Name="Old" HorizontalAlignment="Left" Height="19" Margin="185,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
+        <TextBox Name="Sum" HorizontalAlignment="Left" Height="21" Margin="185,179,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
+
         <Button x:Name="GoProgress" Content="Составить портфель" HorizontalAlignment="Left" Margin="446,303,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="GoProgress_Click"/>
-        <Label Content="Ф.И.О" HorizontalAlignment="Left" Margin="221,58,0,0" VerticalAlignment="Top" Width="42" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Возраст(лет)" HorizontalAlignment="Left" Margin="198,130,0,0" VerticalAlignment="Top" Width="84" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Сумма инвестиций(р)" HorizontalAlignment="Left" Margin="172,193,0,0" VerticalAlignment="Top" Width="128" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Риск(%)" HorizontalAlignment="Left" Margin="214,260,0,0" VerticalAlignment="Top" Width="52" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Ф.И.О" HorizontalAlignment="Left" Margin="219,47,0,0" VerticalAlignment="Top" Width="42" Height="25" RenderTransformOrigin="0.614,0.57"/>
+        <Label Content="Возраст(лет)" HorizontalAlignment="Left" Margin="200,100,0,0" VerticalAlignment="Top" Width="84" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Сумма инвестиций(р)" HorizontalAlignment="Left" Margin="172,149,0,0" VerticalAlignment="Top" Width="128" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Цель инвестирования" HorizontalAlignment="Left" Margin="176,214,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
         <Label Content="Доходность(%)" HorizontalAlignment="Left" Margin="194,333,0,0" VerticalAlignment="Top" Width="92" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Срок инвестиций(мес)" HorizontalAlignment="Left" Margin="160,401,0,0" VerticalAlignment="Top" Width="140" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Срочность(мес)" HorizontalAlignment="Left" Margin="194,401,0,0" VerticalAlignment="Top" Width="98" Height="25" RenderTransformOrigin="0.476,0.522"/>
         <DockPanel VerticalAlignment="Top" Margin="0,363,832,0" HorizontalAlignment="Right" Width="256" Height="20">
             <TextBox Name="Doxod" Text="{Binding Value, ElementName=slValue1, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24" />
             <Slider Maximum="95" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200" />
@@ -34,9 +30,15 @@
             <TextBox Name="Srok" Text="{Binding Value, ElementName=slValue2, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24"  />
             <Slider Maximum="24" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slValue2" Height="39" Width="200" />
         </DockPanel>
-        <Label Content="Социальный статус,семейное положение,общая задолжность " HorizontalAlignment="Left" Margin="352,45,0,0" VerticalAlignment="Top"/>
         <Label Content="Ваш портфель" HorizontalAlignment="Left" Margin="761,34,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Update" Content="Обновить данные" HorizontalAlignment="Left" Margin="446,414,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="Update_Click"/>
+        <Label Content="Социальный статус" HorizontalAlignment="Left" Margin="408,42,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Семейное положение" HorizontalAlignment="Left" Margin="408,100,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Общая задолжность" HorizontalAlignment="Left" Margin="408,149,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <ComboBox x:Name="CeLInvest" HorizontalAlignment="Left" Margin="182,244,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChangedCel" SelectedIndex="0"/>
+        <ComboBox x:Name="SocialStatus" HorizontalAlignment="Left" Margin="414,72,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChangedSocial" IsReadOnly="True" SelectedIndex="0"/>
+        <ComboBox x:Name="Maried" HorizontalAlignment="Left" Margin="414,125,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChangedMaried" SelectedIndex="0"/>
+        <TextBox x:Name="Zadol" HorizontalAlignment="Left" Height="21" Margin="419,179,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="110"/>
 
     </Grid>
 </Window>

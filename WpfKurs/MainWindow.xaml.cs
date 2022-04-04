@@ -24,42 +24,91 @@ namespace WpfKurs
     public partial class MainWindow : Window
     {
         int SrokInvest = 0;
-       public static double KursDollara = GetDataUSD();
+        public static double KursDollara = GetDataUSD();
         List<Akcia> Akcii = new List<Akcia>();
         List<Kripta> Kripta = new List<Kripta>();
         List<Kripta> KriptaRisk = new List<Kripta>();
         List<Kripta> Zerorisk = new List<Kripta>();
+        public static string cel { get; set; }
+        public static string social { get; set; }
+        public static string maried { get; set; }
         //Курс доллара
         public MainWindow()
         {
             InitializeComponent();
-
+            CeLInvest.Items.Add("Выберете...");
+            CeLInvest.Items.Add("Сбережение");
+            CeLInvest.Items.Add("Максимальный процент дохода");
+            CeLInvest.Items.Add("Стабильный рост");
+            SocialStatus.Items.Add("Выберете...");
+            SocialStatus.Items.Add("Высокий достаток");
+            SocialStatus.Items.Add("Средний достаток");
+            SocialStatus.Items.Add("Низкий достаток");
+            Maried.Items.Add("Выберете...");
+            Maried.Items.Add("Замужем/Женат");
+            Maried.Items.Add("Имеется отношения");
+            Maried.Items.Add("Одинок");
         }
 
         private void GoProgress_Click(object sender, RoutedEventArgs e)
         {
             Output.Text = "";
-            string name= FIO.Text;
+            string name = FIO.Text;
             int money = 0;
             int old = 0;
+            int zadol = 0;
+            bool correct = true;
             try
             {
-                 old = Int32.Parse(Old.Text);
-                 money = Int32.Parse(Sum.Text);
+                old = Int32.Parse(Old.Text);
+                money = Int32.Parse(Sum.Text);
+                zadol = Int32.Parse(Zadol.Text);
             }
             catch
             {
                 throw new Exception();
             }
-           
-            int risk = Int32.Parse(Risk.Text);
-            int doxod = Int32.Parse(Doxod.Text);
-            int srok = Int32.Parse(Srok.Text);
+
+
+
+
+
+
+            if (cel == "Выберете..." || cel == null)
+            {
+
+            }
+            else if (cel == "Сбережение") { }
+            else if (cel == "Максимальный процент дохода") { }
+            else if (cel == "Стабильный рост") { }
+
+            if (social == "Выберете..." || social == null)
+            {
+
+            }
+            else if (social == "Высокий достаток") { }
+            else if (social == "Средний достаток") { }
+            else if (social == "Низкий достаток") { }
+
+            if (maried == "Выберете..."||maried==null)
+            {
+
+            }
+            else if (maried == "Выберете...") { }
+            else if (maried == "Замужем/Женат") { }
+            else if (maried == "Имеется отношения") { }
+            else if (maried == "Одинок") { }
+            
+
+
+
+            
+            /*int srok = Int32.Parse(Srok.Text);
             if (risk != 0 & doxod != 0 && srok != 0&money!=0)
             {
                 Porfel na = new Porfel(Akcii, Kripta, KriptaRisk, Zerorisk, name, old, money, risk, doxod, srok,KursDollara);
                 Output.Text = na.GetPortfel();
-            }
+            }*/
             else
             {
                 //вывод некоректных данныъ
@@ -280,7 +329,7 @@ namespace WpfKurs
                                     ak.indicators = otv.chart.result[0].indicators;
                                     ak.meta = otv.chart.result[0].meta;
                                     ak.timestamp = otv.chart.result[0].timestamp;
-
+                                    
                                 } break;
 
                         }
@@ -416,9 +465,21 @@ namespace WpfKurs
             return false;
         }
 
-        private void Akcii_Checked(object sender, RoutedEventArgs e)
+        private void ComboBox_SelectionChangedCel(object sender, SelectionChangedEventArgs e)
+        {
+            cel = e.AddedItems[0].ToString();
+            
+        }
+        private void ComboBox_SelectionChangedSocial(object sender, SelectionChangedEventArgs e)
+        {
+            social = e.AddedItems[0].ToString();
+        }
+        private void ComboBox_SelectionChangedMaried(object sender, SelectionChangedEventArgs e)
         {
 
+            maried = e.AddedItems[0].ToString();
         }
+
+        
     }
 }
