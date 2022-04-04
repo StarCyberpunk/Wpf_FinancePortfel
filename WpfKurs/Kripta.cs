@@ -18,6 +18,8 @@ namespace WpfKurs
         public Meta meta { get; set; }
         public Indicators indicators { get; set; }
         public double CurrentPrice { get; set; }
+        public double TargetMedian { get; set; }
+        public double Raznicaa { get; set; }
     }
 
     

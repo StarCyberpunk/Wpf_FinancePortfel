@@ -24,6 +24,8 @@ namespace WpfKurs
         public int[] timestamp { get; set; }
         public Meta meta { get; set; }
         public Indicators indicators { get; set; }
+
+        public double Raznica { get; set; }
     }
     #region GetDate
     public class Rootobject

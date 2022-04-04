@@ -21,7 +21,8 @@ namespace WpfKurs
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+     
+public partial class MainWindow : Window
     {
         int SrokInvest = 0;
         public static double KursDollara = GetDataUSD();
@@ -29,6 +30,7 @@ namespace WpfKurs
         List<Kripta> Kripta = new List<Kripta>();
         List<Kripta> KriptaRisk = new List<Kripta>();
         List<Kripta> Zerorisk = new List<Kripta>();
+        public static Type tipPortfel;
         public static string cel { get; set; }
         public static string social { get; set; }
         public static string maried { get; set; }
@@ -57,7 +59,14 @@ namespace WpfKurs
             int money = 0;
             int old = 0;
             int zadol = 0;
+            int cell = 0;
+            int socia = 0;
+            int marie = 0;
             bool correct = true;
+            
+            int doxod = Int32.Parse(Doxod.Text);
+            int srok = Int32.Parse(Srok.Text);
+            
             try
             {
                 old = Int32.Parse(Old.Text);
@@ -66,52 +75,143 @@ namespace WpfKurs
             }
             catch
             {
-                throw new Exception();
+                correct = false;
             }
 
+            if (old < 18 || old > 99)
+            {
+                correct = false;
+                MessageBox.Show("Введите корректный возраст");
+            }
 
-
+            if(money < 0||money>Int32.MaxValue)
+            {
+                correct=false;
+                MessageBox.Show("Введите корректную сумму");
+            }
+            if(doxod == 0)
+            {
+                correct = false;
+                MessageBox.Show("Введите корректную процент доходности");
+            }
+            if (srok == 0)
+            {
+                correct = false;
+                MessageBox.Show("Введите корректную срочность");
+            }
 
 
 
             if (cel == "Выберете..." || cel == null)
             {
-
+                correct = false;
             }
-            else if (cel == "Сбережение") { }
-            else if (cel == "Максимальный процент дохода") { }
-            else if (cel == "Стабильный рост") { }
+            
 
             if (social == "Выберете..." || social == null)
             {
-
+                correct = false;
             }
-            else if (social == "Высокий достаток") { }
-            else if (social == "Средний достаток") { }
-            else if (social == "Низкий достаток") { }
-
-            if (maried == "Выберете..."||maried==null)
-            {
-
-            }
-            else if (maried == "Выберете...") { }
-            else if (maried == "Замужем/Женат") { }
-            else if (maried == "Имеется отношения") { }
-            else if (maried == "Одинок") { }
             
 
-
-
-            
-            /*int srok = Int32.Parse(Srok.Text);
-            if (risk != 0 & doxod != 0 && srok != 0&money!=0)
+            if (maried == "Выберете..." || maried == null)
             {
-                Porfel na = new Porfel(Akcii, Kripta, KriptaRisk, Zerorisk, name, old, money, risk, doxod, srok,KursDollara);
-                Output.Text = na.GetPortfel();
-            }*/
+                correct = false;
+            }
+
+            if (cel == "Сбережение") { cell = 1; }
+            else if (cel == "Максимальный процент дохода") { cell = 3; }
+            else if (cel == "Стабильный рост") { cell = 2; }
+
+
+            if (social == "Высокий достаток") { socia = 3; }
+            else if (social == "Средний достаток") { socia = 2; }
+            else if (social == "Низкий достаток") { socia = 1; }
+
+
+            if (maried == "Замужем/Женат") { marie = 3; }
+            else if (maried == "Имеется отношения") { marie = 2; }
+            else if (maried == "Одинок") { marie = 1; }
+
+            if (old < 50) { 
+            if (cell == 1)
+            {
+                if (socia == 1)
+                {
+                    if (marie == 1) { tipPortfel = Type.konserv2; }
+                    else if (marie == 2) { tipPortfel = Type.konserv2; }
+                    else if (marie == 3) { tipPortfel = Type.konserv3; }
+                }
+                else if (socia == 2)
+                {
+                    if (marie == 1) { tipPortfel = Type.konserv1; }
+                    else if (marie == 2) { tipPortfel = Type.konserv1; }
+                    else if (marie == 3) { tipPortfel = Type.konserv2; }
+                }
+                else if (socia == 3)
+                {
+                    if (marie == 1) { tipPortfel = Type.konserv1; }
+                    else if (marie == 2) { tipPortfel = Type.konserv1; }
+                    else if (marie == 3) { tipPortfel = Type.konserv1; }
+                }
+            }
+            else if (cell == 2)
+            {
+                if (socia == 1)
+                {
+                    if (marie == 1) { tipPortfel = Type.balance2; }
+                    else if (marie == 2) { tipPortfel = Type.balance2; }
+                    else if (marie == 3) { tipPortfel = Type.balance3; }
+                }
+                else if (socia == 2)
+                {
+                    if (marie == 1) { tipPortfel = Type.balance1; }
+                    else if (marie == 2) { tipPortfel = Type.balance1; }
+                    else if (marie == 3) { tipPortfel = Type.balance2; }
+                }
+                else if (socia == 3)
+                {
+                    if (marie == 1) { tipPortfel = Type.balance1; }
+                    else if (marie == 2) { tipPortfel = Type.balance1; }
+                    else if (marie == 3) { tipPortfel = Type.balance1; }
+                }
+            }
+            else if (cell == 3)
+            {
+                if (socia == 1)
+                {
+                    if (marie == 1) { tipPortfel = Type.agresive2; }
+                    else if (marie == 2) { tipPortfel = Type.agresive2; }
+                    else if (marie == 3) { tipPortfel = Type.agresive3; }
+                }
+                else if (socia == 2)
+                {
+                    if (marie == 1) { tipPortfel = Type.agresive1; }
+                    else if (marie == 2) { tipPortfel = Type.agresive1; }
+                    else if (marie == 3) { tipPortfel = Type.agresive2; }
+                }
+                else if (socia == 3)
+                {
+                    if (marie == 1) { tipPortfel = Type.agresive1; }
+                    else if (marie == 2) { tipPortfel = Type.agresive1; }
+                    else if (marie == 3) { tipPortfel = Type.agresive1; }
+                }
+            }
+            }
             else
             {
-                //вывод некоректных данныъ
+                tipPortfel = Type.konserv3;
+            }
+
+
+            if ( correct)
+            {
+                Porfel na = new Porfel(Akcii, Zerorisk, name, money,tipPortfel ,srok);
+                Output.Text = na.GetPortfel();
+            }
+            else
+            {
+                MessageBox.Show("Проверьте корректность данных");
             }
             
         }
@@ -119,6 +219,7 @@ namespace WpfKurs
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+            
             List<string> BlueAct = new List<string>();
             BlueAct.Add("AAPL");
             BlueAct.Add("JNJ");
@@ -256,11 +357,12 @@ namespace WpfKurs
             //сроки разные 
 
 
-            Console.WriteLine();
             
-            
-            
-            
+
+            Update.Content = "Обновлено";
+            Update.IsEnabled = false;
+
+
         }
        private static Akcia GetDataFromYahooFinAKCIA(string name)
         {
@@ -309,6 +411,7 @@ namespace WpfKurs
                                     ak.TargetPriceLow = otv.quoteSummary.result[0].financialData.targetLowPrice.raw;
                                     ak.TargetPriceMean = otv.quoteSummary.result[0].financialData.targetMeanPrice.raw;
                                     ak.TargetPriceMedian = otv.quoteSummary.result[0].financialData.targetMedianPrice.raw;
+                                    
                                 }
                                 break;
                             case 2:
@@ -349,9 +452,14 @@ namespace WpfKurs
                 if (ak.meta.currency == "USD")
                 {
                     ak.CurrentPrice = ak.CurrentPrice * KursDollara;
+                    ak.TargetPriceHigh = ak.TargetPriceHigh * KursDollara;
+                    ak.TargetPriceLow = ak.TargetPriceLow * KursDollara;
+                    ak.TargetPriceMean = ak.TargetPriceMean * KursDollara; 
+                    ak.TargetPriceMedian = ak.TargetPriceMedian * KursDollara;
 
                 }
             }
+            ak.Raznica = ak.TargetPriceMean-ak.CurrentPrice;
             ak.symbol = name;
             return(ak);
         }
@@ -424,11 +532,18 @@ namespace WpfKurs
                                 break;
                             case 2:
                                 {
+                                    if (otv.chart.result == null) break;
                                     if (otv.chart.result[0].indicators == null) break;
                                     kr.indicators = otv.chart.result[0].indicators;
                                     kr.meta = otv.chart.result[0].meta;
                                     kr.timestamp = otv.chart.result[0].timestamp;
                                     kr.CurrentPrice = otv.chart.result[0].meta.chartPreviousClose;
+                                    double median = 0;
+                                    for(int j = 0; j < otv.chart.result[0].indicators.quote[0].close.Length; j++)
+                                    {
+                                        median += otv.chart.result[0].indicators.quote[0].close[j];
+                                    }
+                                    kr.TargetMedian = median / otv.chart.result[0].indicators.quote[0].close.Length;
                                 }
                                 break;
                             
@@ -448,8 +563,10 @@ namespace WpfKurs
                 {
 
                     kr.CurrentPrice = kr.CurrentPrice * KursDollara;
+                    kr.TargetMedian= kr.TargetMedian * KursDollara;
                 }
             }
+            kr.Raznicaa =kr.TargetMedian- kr.CurrentPrice;
             kr.symbol = name;
             return (kr);
         }
