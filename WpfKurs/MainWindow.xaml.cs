@@ -24,7 +24,7 @@ namespace WpfKurs
     public partial class MainWindow : Window
     {
         int SrokInvest = 0;
-        double KursDollara = GetDataUSD();
+       public static double KursDollara = GetDataUSD();
         List<Akcia> Akcii = new List<Akcia>();
         List<Kripta> Kripta = new List<Kripta>();
         List<Kripta> KriptaRisk = new List<Kripta>();
@@ -148,7 +148,7 @@ namespace WpfKurs
             {
                 if (z == 20) { break; }
                 string s = Kripto[z];
-                Kripta temp = GetDataFromYahooFinKRIPTA(s);
+                Kripta temp = GetDataFromYahooFinZero(s);
                 Kripta.Add(temp);
                 if (temp.recommendedSymbols != null & (Kripto.Count < 20))
                 {
@@ -168,7 +168,7 @@ namespace WpfKurs
             {
                 if (z == 20) { break; }
                 string s = KriptoHighRisk[z];
-                Kripta temp = GetDataFromYahooFinKRIPTA(s);
+                Kripta temp = GetDataFromYahooFinZero(s);
                 KriptaRisk.Add(temp);
                 if (temp.recommendedSymbols != null & (KriptoHighRisk.Count < 20))
                 {
@@ -188,8 +188,8 @@ namespace WpfKurs
             {
                 if (z == 20) { break; }
                 string s = ZeroRisk[z];
-                Kripta temp = GetDataFromYahooFinKRIPTA(s);
-                Zerorisk.Add(temp);
+                Kripta temp = GetDataFromYahooFinZero(s);
+                if(temp.indicators!=null) Zerorisk.Add(temp);
                 if (temp.recommendedSymbols != null & (ZeroRisk.Count < 20))
                 {
                     for (int i = 0; i < temp.recommendedSymbols.Length; i++)
@@ -204,6 +204,7 @@ namespace WpfKurs
                 z++;
             }
             //TODOУбрать повторение
+            //сроки разные 
 
 
             Console.WriteLine();
@@ -286,12 +287,21 @@ namespace WpfKurs
                         
                     }
 
+
                 }
                 catch (Exception ex)
                 {
                     continue;
                 }
 
+            }
+            if (ak.meta != null)
+            {
+                if (ak.meta.currency == "USD")
+                {
+                    ak.CurrentPrice = ak.CurrentPrice * KursDollara;
+
+                }
             }
             ak.symbol = name;
             return(ak);
@@ -325,15 +335,17 @@ namespace WpfKurs
                 }
             }catch (Exception ex) { throw new Exception(); }
             }
-        private static Kripta GetDataFromYahooFinKRIPTA(string name)
+        private static Kripta GetDataFromYahooFinZero(string name)
         {
             string predict = String.Format("https://query1.finance.yahoo.com/v6/finance/recommendationsbysymbol/{0}", name);
             string recomendation = String.Format("https://query1.finance.yahoo.com/v11/finance/quoteSummary/{0}?lang=en&region=US&modules=summaryDetail", name);
+            string charts = String.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?comparisons=MSFT%2C%5EVIX&range=1mo&region=US&interval=1d&lang=en&events=div%2Csplit",name);
             string[] sites = new string[4];
             sites[0] = predict;
             sites[1] = recomendation;
+            sites[2] = charts;
             Kripta kr = new Kripta();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 try
                 {
@@ -358,6 +370,16 @@ namespace WpfKurs
                             case 1:
                                 {
                                     kr.summaryDetail = otv.quoteSummary.result[0].summaryDetail;
+                                    kr.CurrentPrice =  otv.quoteSummary.result[0].summaryDetail.open.raw;
+                                }
+                                break;
+                            case 2:
+                                {
+                                    if (otv.chart.result[0].indicators == null) break;
+                                    kr.indicators = otv.chart.result[0].indicators;
+                                    kr.meta = otv.chart.result[0].meta;
+                                    kr.timestamp = otv.chart.result[0].timestamp;
+                                    kr.CurrentPrice = otv.chart.result[0].meta.chartPreviousClose;
                                 }
                                 break;
                             
@@ -370,6 +392,14 @@ namespace WpfKurs
                     continue;
                 }
 
+            }
+            if (kr.summaryDetail != null)
+            {
+                if (kr.summaryDetail.currency == "USD")
+                {
+
+                    kr.CurrentPrice = kr.CurrentPrice * KursDollara;
+                }
             }
             kr.symbol = name;
             return (kr);
