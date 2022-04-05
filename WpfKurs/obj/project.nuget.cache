@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "l4/V1AU8qNWGM8crRHf03LpS51ItpudkDTgtdTgCtcXHkahy/Bohp+FBkpNlm4QA/lvktWv6EgpAlYFaVQgKsQ==",
+  "dgSpecHash": "WDbCCUs9QImodxkWjU+dAjdbPXkj8yl1pPpTuKnk5modkW8tV+cHolQ9/SZcPArQzCsURcqA2Hl7qwSn7i13tw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\notma\\source\\repos\\WpfKurs\\WpfKurs\\WpfKurs.csproj",
+  "projectFilePath": "C:\\Users\\БЛэкс\\Desktop\\5 cem\\PK\\Wpf_FinancePortfel\\WpfKurs\\WpfKurs.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\notma\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\БЛэкс\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }
