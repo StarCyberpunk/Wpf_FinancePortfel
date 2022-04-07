@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "3uHE3ZMTUDfjWjCFrUMNP+L5hU0ep0zDlhRHi1PGcLPbdBbrlv3o9vqWd0K2lI9uanwH6wKRC0Aoupsvq4OdAA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\notma\\source\\repos\\WpfKurs\\WpfKurs\\WpfKurs.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\notma\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
