@@ -20,6 +20,7 @@ namespace WpfKurs
         public static List<Kripta> ResultRisk;
         public static double ResRisk;
         public static Type tipPortfel;
+        public static string Name;
 
         //TODO сроки и доходность
 
@@ -35,6 +36,7 @@ namespace WpfKurs
             ResultAkcii = new List<Akcia>();
             ResultRisk = new List<Kripta>();
             ResRisk = 0;
+            Name = name;
             double procAkc = 0;
             double procZero = 0;
             
@@ -43,7 +45,7 @@ namespace WpfKurs
             {
                 case Type.agresive1:
                     {
-                        procAkc = 100;
+                        procAkc = 1;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMaxPribal(AkciaList);
 
@@ -51,8 +53,8 @@ namespace WpfKurs
                     break;
                 case Type.agresive2:
                     {
-                        procAkc = 85;
-                        procZero = 15;
+                        procAkc = 0.85;
+                        procZero = 0.15;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMaxPribal(AkciaList);
                         SortForBetterMaxPribal(RiskZero);
@@ -60,8 +62,8 @@ namespace WpfKurs
                     break;
                 case Type.agresive3:
                     {
-                        procAkc = 70;
-                        procZero = 30;
+                        procAkc = 0.70;
+                        procZero = 0.30;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMaxPribal(AkciaList);
                         SortForBetterMaxPribal(RiskZero);
@@ -69,8 +71,8 @@ namespace WpfKurs
                     break;
                 case Type.balance1:
                     {
-                        procAkc = 60;
-                        procZero = 30;
+                        procAkc = 0.60;
+                        procZero = 0.30;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMinRisk(AkciaList);
                         SortForBetterMaxPribal(RiskZero);
@@ -78,8 +80,8 @@ namespace WpfKurs
                     break;
                 case Type.balance2:
                     {
-                        procAkc = 50;
-                        procZero = 50;
+                        procAkc = 0.50;
+                        procZero = 0.50;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMinRisk(AkciaList);
                         SortForBetterMaxPribal(RiskZero);
@@ -87,8 +89,8 @@ namespace WpfKurs
                     break;
                 case Type.balance3:
                     {
-                        procAkc = 40;
-                        procZero = 60;
+                        procAkc = 0.40;
+                        procZero = 0.60;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMinRisk(AkciaList);
                         SortForBetterMaxPribal(RiskZero);
@@ -96,8 +98,8 @@ namespace WpfKurs
                     break;
                 case Type.konserv1:
                     {
-                        procAkc = 30;
-                        procZero = 70;
+                        procAkc = 0.30;
+                        procZero = 0.70;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMinRisk(AkciaList);
                         SortForBetterMaxPribal(RiskZero);
@@ -105,8 +107,8 @@ namespace WpfKurs
                     break;
                 case Type.konserv2:
                     {
-                        procAkc = 20;
-                        procZero = 80;
+                        procAkc = 0.20;
+                        procZero = 0.80;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMinRisk(AkciaList);
                         SortForBetterMaxPribal(RiskZero);
@@ -114,15 +116,14 @@ namespace WpfKurs
                     break;
                 case Type.konserv3:
                     {
-                        procZero = 100;
+                        procZero = 1;
                         Filter(Akcii, Zerorisk, money, procAkc, procZero);
                         SortForBetterMaxPribal(RiskZero);
                     }
                     break;
             }
 
-            procAkc /= 100;
-            procZero /= 100;
+            
 
 
             double moneyAkcii = money * procAkc;
@@ -133,7 +134,8 @@ namespace WpfKurs
             while (moneyAkcii > 0)
             {
                 if (AkciaList.Count == 0) break;
-                if (AkciaList[i].TargetPriceMean*100/ AkciaList[i].CurrentPrice-100 > doxod) { 
+                if (AkciaList[i].TargetPriceMean*100/ AkciaList[i].CurrentPrice-100 > doxod) {
+                    if (moneyAkcii - AkciaList[i].CurrentPrice < 0) break;
                 ResultAkcii.Add(AkciaList[i]);
                     moneyAkcii -= AkciaList[i].CurrentPrice;
                     obdoxod += AkciaList[i].TargetPriceMean * 100 / AkciaList[i].CurrentPrice - 100;
@@ -149,6 +151,7 @@ namespace WpfKurs
             while (moneyZero > 0)
             {
                 if (RiskZero.Count == 0) break;
+                if(moneyZero - RiskZero[i].CurrentPrice<0) break;
                 ResultRisk.Add(RiskZero[i]);
                 moneyZero -= RiskZero[i].CurrentPrice;
                     
@@ -183,7 +186,7 @@ namespace WpfKurs
             {
                 if (k.Raznicaa > 0)
                 {
-                    if (k.CurrentPrice * 3 < money * procZero)
+                    if (k.CurrentPrice * 4 < money * procZero)
                     {
                         RiskZero.Add(k);
                     }
@@ -230,7 +233,7 @@ namespace WpfKurs
             {
                 for (int j = i + 1; j < list.Count; ++j)
                 {
-                    if (list[i].Raznicaa / list[i].CurrentPrice < list[j].Raznicaa / list[j].CurrentPrice)
+                    if (list[i].Raznicaa / list[i].CurrentPrice > list[j].Raznicaa / list[j].CurrentPrice)
                     {
                         Kripta tmp = list[i];
                         list[i] = list[j];
@@ -289,12 +292,19 @@ namespace WpfKurs
         {
             int k = 0;
             int i = 0;
+            foreach (Akcia ak in ResultAkcii)
+            {
+                if (ak.symbol == a.symbol)
+                {
+                    k++;
+                }
+             }
             while (i <ResultAkcii.Count-1) { 
                 if(ResultAkcii[i].symbol == a.symbol)
                 {
-                    k++;
-                    ResultAkcii.RemoveAt(i);
                     
+                    ResultAkcii.RemoveAt(i);
+                    i = -1;
                 }
                 i++;
                 
@@ -306,15 +316,23 @@ namespace WpfKurs
         {
             int k = 0;
             int i = 0;
+            foreach(Kripta z in ResultRisk)
+            {
+                if (z.symbol == a.symbol)
+                {
+                    k++;
+                }
+            }
             while (i < ResultRisk.Count - 1)
             {
                 if (ResultRisk[i].symbol == a.symbol)
                 {
-                    k++;
+                    
                     ResultRisk.RemoveAt(i);
-
+                    i = -1;
                 }
                 i++;
+
 
             }
 
@@ -325,25 +343,28 @@ namespace WpfKurs
         {
             string portfel2 = "";
             int i = 0;
+            portfel2 += String.Format("Имя:{0}\n Советуем купить акции данных компаний:\n",Name);
             while(i < ResultAkcii.Count-1) {
             
                 Akcia a=ResultAkcii[i];
                 ResRisk += a.RiskScore;
-                 portfel2 += String.Format(a.symbol+" "+Kol_voAkcia(a)+"шт "+"По цене {0} "+"Прибыль(%){1}"+"\n",a.CurrentPrice,Math.Round( a.Raznica/a.CurrentPrice*100,2));
+                 portfel2 += String.Format(a.symbol+" "+Kol_voAkcia(a)+"шт "+"По цене {0} "+"Максимальная прибыль(%){1}"+"\n"+"Минимальная прибыль:{2}\n", Math.Round(a.CurrentPrice,2),Math.Round( a.TargetPriceMean * 100 / a.CurrentPrice - 100, 2),Math.Round(a.NormaPriboli,2));
                 i++;
             }
-            portfel2 += String.Format("\n{0}", ResRisk);
+            portfel2 += String.Format("\n Примерный риск:{0}",Math.Round( ResRisk/i,2));
             portfel2 += "\n\n";
+            portfel2 += String.Format(" Советуем купить эти фонды/металлы :\n");
+            i = 0;
             while (i < ResultRisk.Count - 1)
             {
 
                 Kripta a = ResultRisk[i];
                 ResRisk = 5;
-                portfel2 += String.Format(a.symbol + " " + Kol_voZero(a) + "шт " + "По цене {0} " + "Прибыль(%){1}" + "\n", a.CurrentPrice, Math.Round(a.Raznicaa / a.CurrentPrice * 100, 2));
+                portfel2 += String.Format(a.symbol + " " + Kol_voZero(a) + "шт " + "По цене {0} " + " Примерная прибыль(%):{1}" + "\n", Math.Round(a.CurrentPrice,2), Math.Round(a.TargetMedian * 100 / a.CurrentPrice - 100, 2));
                 i++;
             }
             ResRisk /= ResultRisk.Count;
-            portfel2 += String.Format("\n{0}",ResRisk);
+            portfel2 += String.Format("\n Примерный риск:{0}",ResRisk/i);
             return portfel2;
         }
     }

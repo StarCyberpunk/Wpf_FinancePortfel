@@ -514,7 +514,7 @@ public partial class MainWindow : Window
         {
             string predict = String.Format("https://query1.finance.yahoo.com/v6/finance/recommendationsbysymbol/{0}", name);
             string recomendation = String.Format("https://query1.finance.yahoo.com/v11/finance/quoteSummary/{0}?lang=en&region=US&modules=summaryDetail", name);
-            string charts = String.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?comparisons=MSFT%2C%5EVIX&range={1}&region=US&interval={2}&lang=en&events=div%2Csplit",name,range,interval);
+            string charts = String.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?comparisons=MSFT%2C%5EVIX&range=6mo&region=US&interval=1d&lang=en&events=div%2Csplit",name);
             string[] sites = new string[4];
             sites[0] = predict;
             sites[1] = recomendation;
