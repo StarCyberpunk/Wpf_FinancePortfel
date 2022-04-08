@@ -343,6 +343,7 @@ namespace WpfKurs
         {
             string portfel2 = "";
             int i = 0;
+            if (ResultAkcii.Count != 0) { 
             portfel2 += String.Format("Имя:{0}\n Советуем купить акции данных компаний:\n",Name);
             while(i < ResultAkcii.Count-1) {
             
@@ -353,7 +354,10 @@ namespace WpfKurs
             }
             portfel2 += String.Format("\n Примерный риск:{0}",Math.Round( ResRisk/i,2));
             portfel2 += "\n\n";
-            portfel2 += String.Format(" Советуем купить эти фонды/металлы :\n");
+            }
+            else { portfel2 += String.Format("Нет акций с данной доходностью"); }
+            if (ResultRisk.Count!=0) { 
+                portfel2 += String.Format(" Советуем купить эти фонды/металлы :\n");
             i = 0;
             while (i < ResultRisk.Count - 1)
             {
@@ -363,8 +367,12 @@ namespace WpfKurs
                 portfel2 += String.Format(a.symbol + " " + Kol_voZero(a) + "шт " + "По цене {0} " + " Примерная прибыль(%):{1}" + "\n", Math.Round(a.CurrentPrice,2), Math.Round(a.TargetMedian * 100 / a.CurrentPrice - 100, 2));
                 i++;
             }
+
             ResRisk /= ResultRisk.Count;
+            
             portfel2 += String.Format("\n Примерный риск:{0}",ResRisk/i);
+            }
+            
             return portfel2;
         }
     }

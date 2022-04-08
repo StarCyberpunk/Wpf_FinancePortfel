@@ -30,6 +30,8 @@ public partial class MainWindow : Window
         List<Kripta> Kripta = new List<Kripta>();
         List<Kripta> KriptaRisk = new List<Kripta>();
         List<Kripta> Zerorisk = new List<Kripta>();
+        public bool data_have=false;
+        public int Srokk=1;
         public static Type tipPortfel;
         public static string cel { get; set; }
         public static string social { get; set; }
@@ -121,21 +123,7 @@ public partial class MainWindow : Window
             {
                 correct = false;
             }
-            if (srok < 6)
-            {
-                range = "6mo";
-                interval = "1d";
-            }
-            else if (srok >= 6 && srok <= 12)
-            {
-                range = "1y";
-                interval = "1wk";
-            }
-            else if (srok > 12 && srok < 24)
-            {
-                range = "5y";
-                interval = "1mo";
-            }
+            
 
             if (cel == "Сбережение") { cell = 1; }
             else if (cel == "Максимальный процент дохода") { cell = 3; }
@@ -237,152 +225,182 @@ public partial class MainWindow : Window
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+
+            int srok = Int32.Parse(Srok.Text);
+            Srokk = srok;
+            //Настроить тонко сроки
+            if (srok > 0 && srok < 6)
+            {
+                range = "6mo";
+                interval = "1d";
+            }
+            else if (srok >= 6 && srok <= 12)
+            {
+                range = "1y";
+                interval = "1wk";
+            }
+            else if (srok > 12 && srok < 24)
+            {
+                range = "5y";
+                interval = "1mo";
+            }
+            if (srok == 0)
+            {
+                MessageBox.Show("Введите срочность");
+            }
+            else
+            {
+                MessageBox.Show("Скачивание данных может занять до 5-х минут");
+                List<string> BlueAct = new List<string>();
+                BlueAct.Add("AAPL");
+                BlueAct.Add("JNJ");
+                BlueAct.Add("INTC");
+                BlueAct.Add("MRK");
+                BlueAct.Add("NVDA");
+                List<string> RiskAct = new List<string>();
+                RiskAct.Add("SBER.ME");
+                RiskAct.Add("ROSN.ME");
+                RiskAct.Add("BPE5.DU");
+                RiskAct.Add("YCP.DE");
+                List<string> Kripto = new List<string>();
+                Kripto.Add("BTC-USD");
+                Kripto.Add("ETH-USD");
+                Kripto.Add("SOL-USD");
+                List<string> KriptoHighRisk = new List<string>();
+                KriptoHighRisk.Add("DOGE-USD");
+                KriptoHighRisk.Add("CVX-USD");
+                KriptoHighRisk.Add("LUNA1-USD");
+                List<string> ZeroRisk = new List<string>();
+                ZeroRisk.Add("GC=F");
+                ZeroRisk.Add("SI=F");
+                ZeroRisk.Add("^N225");
+                ZeroRisk.Add("^RUT");
+                ZeroRisk.Add("^GSPC");
+                ZeroRisk.Add("^DJI");
+                int z = 0;
+
+                while (true)
+                {
+                    if (z == 20) { break; }
+                    string s = BlueAct[z];
+                    Akcia temp = GetDataFromYahooFinAKCIA(s);
+                    if (temp.RiskScore != 0 & temp.TargetPriceMedian != 0)
+                    {
+                        Akcii.Add(temp);
+                    }
+
+                    if (temp.recommendedSymbols != null & (BlueAct.Count < 20))
+                    {
+                        for (int i = 0; i < temp.recommendedSymbols.Length; i++)
+                        {
+                            if (!FindInString(BlueAct, temp.recommendedSymbols[i].symbol))
+                            {
+                                BlueAct.Add(temp.recommendedSymbols[i].symbol);
+                            }
+
+                        }
+                    }
+                    z++;
+                }
+                z = 0;
+                while (true)
+                {
+                    if (z == 20) { break; }
+                    string s = RiskAct[z];
+                    Akcia temp = GetDataFromYahooFinAKCIA(s);
+                    if (temp.RiskScore != 0 & temp.TargetPriceMedian != 0)
+                    {
+                        Akcii.Add(temp);
+                    }
+                    if (temp.recommendedSymbols != null & (RiskAct.Count < 20))
+                    {
+                        for (int i = 0; i < temp.recommendedSymbols.Length; i++)
+                        {
+                            if (!FindInString(RiskAct, temp.recommendedSymbols[i].symbol))
+                            {
+                                RiskAct.Add(temp.recommendedSymbols[i].symbol);
+                            }
+
+                        }
+                    }
+                    z++;
+                }
+
+                z = 0;
+                /* while (true)
+                 {
+                     if (z == 20) { break; }
+                     string s = Kripto[z];
+                     Kripta temp = GetDataFromYahooFinZero(s);
+                     Kripta.Add(temp);
+                     if (temp.recommendedSymbols != null & (Kripto.Count < 20))
+                     {
+                         for (int i = 0; i < temp.recommendedSymbols.Length; i++)
+                         {
+                             if (!FindInString(Kripto, temp.recommendedSymbols[i].symbol))
+                             {
+                                 Kripto.Add(temp.recommendedSymbols[i].symbol);
+                             }
+
+                         }
+                     }
+                     z++;
+                 }
+                 z= 0;
+                 while (true)
+                 {
+                     if (z == 20) { break; }
+                     string s = KriptoHighRisk[z];
+                     Kripta temp = GetDataFromYahooFinZero(s);
+                     KriptaRisk.Add(temp);
+                     if (temp.recommendedSymbols != null & (KriptoHighRisk.Count < 20))
+                     {
+                         for (int i = 0; i < temp.recommendedSymbols.Length; i++)
+                         {
+                             if (!FindInString(KriptoHighRisk, temp.recommendedSymbols[i].symbol))
+                             {
+                                 KriptoHighRisk.Add(temp.recommendedSymbols[i].symbol);
+                             }
+
+                         }
+                     }
+                     z++;
+                 }*/
+                z = 0;
+                while (true)
+                {
+                    if (z == 20) { break; }
+                    string s = ZeroRisk[z];
+                    Kripta temp = GetDataFromYahooFinZero(s);
+                    if (temp.indicators != null) Zerorisk.Add(temp);
+                    if (temp.recommendedSymbols != null & (ZeroRisk.Count < 20))
+                    {
+                        for (int i = 0; i < temp.recommendedSymbols.Length; i++)
+                        {
+                            if (!FindInString(ZeroRisk, temp.recommendedSymbols[i].symbol))
+                            {
+                                ZeroRisk.Add(temp.recommendedSymbols[i].symbol);
+                            }
+
+                        }
+                    }
+                    z++;
+                }
+                Update.Content = "Скачать";
+                Update.Visibility = Visibility.Hidden;
+                Srok_panel.IsEnabled = false;
+                Srok_update.Visibility = Visibility.Visible;
+            }
             
-            List<string> BlueAct = new List<string>();
-            BlueAct.Add("AAPL");
-            BlueAct.Add("JNJ");
-            BlueAct.Add("INTC");
-            BlueAct.Add("MRK");
-            BlueAct.Add("NVDA");
-            List<string> RiskAct = new List<string>();
-            RiskAct.Add("SBER.ME");
-            RiskAct.Add("ROSN.ME");
-            RiskAct.Add("BPE5.DU");
-            RiskAct.Add("YCP.DE");
-            List<string> Kripto = new List<string>();
-            Kripto.Add("BTC-USD");
-            Kripto.Add("ETH-USD");
-            Kripto.Add("SOL-USD");
-            List<string> KriptoHighRisk=    new List<string>();
-            KriptoHighRisk.Add("DOGE-USD");
-            KriptoHighRisk.Add("CVX-USD");
-            KriptoHighRisk.Add("LUNA1-USD");
-            List<string> ZeroRisk=new List<string>();
-            ZeroRisk.Add("GC=F");
-            ZeroRisk.Add("SI=F");
-            ZeroRisk.Add("^N225");
-            ZeroRisk.Add("^RUT");
-            ZeroRisk.Add("^GSPC");
-            ZeroRisk.Add("^DJI");
-            int z = 0;
-            
-            while (true) {
-                if (z==20) { break; }
-                string s = BlueAct[z];
-                Akcia temp = GetDataFromYahooFinAKCIA(s);
-                if (temp.RiskScore != 0&temp.TargetPriceMedian!=0) {
-                    Akcii.Add(temp);
-                }
-                
-                if (temp.recommendedSymbols != null & (BlueAct.Count < 20))
-                {
-                    for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                    {
-                        if (!FindInString(BlueAct, temp.recommendedSymbols[i].symbol))
-                        {
-                            BlueAct.Add(temp.recommendedSymbols[i].symbol);
-                        }
-
-                    }
-                }
-                 z++;
-            }
-            z = 0;
-            while (true)
-            {
-                if (z == 20) { break; }
-                string s = RiskAct[z];
-                Akcia temp = GetDataFromYahooFinAKCIA(s);
-                if (temp.RiskScore != 0 & temp.TargetPriceMedian != 0)
-                {
-                    Akcii.Add(temp);
-                }
-                if (temp.recommendedSymbols != null & (RiskAct.Count < 20))
-                {
-                    for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                    {
-                        if (!FindInString(RiskAct, temp.recommendedSymbols[i].symbol))
-                        {
-                            RiskAct.Add(temp.recommendedSymbols[i].symbol);
-                        }
-
-                    }
-                }
-                z++;
-            }
-
-            z = 0;
-           /* while (true)
-            {
-                if (z == 20) { break; }
-                string s = Kripto[z];
-                Kripta temp = GetDataFromYahooFinZero(s);
-                Kripta.Add(temp);
-                if (temp.recommendedSymbols != null & (Kripto.Count < 20))
-                {
-                    for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                    {
-                        if (!FindInString(Kripto, temp.recommendedSymbols[i].symbol))
-                        {
-                            Kripto.Add(temp.recommendedSymbols[i].symbol);
-                        }
-
-                    }
-                }
-                z++;
-            }
-            z= 0;
-            while (true)
-            {
-                if (z == 20) { break; }
-                string s = KriptoHighRisk[z];
-                Kripta temp = GetDataFromYahooFinZero(s);
-                KriptaRisk.Add(temp);
-                if (temp.recommendedSymbols != null & (KriptoHighRisk.Count < 20))
-                {
-                    for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                    {
-                        if (!FindInString(KriptoHighRisk, temp.recommendedSymbols[i].symbol))
-                        {
-                            KriptoHighRisk.Add(temp.recommendedSymbols[i].symbol);
-                        }
-
-                    }
-                }
-                z++;
-            }*/
-            z = 0;
-            while (true)
-            {
-                if (z == 20) { break; }
-                string s = ZeroRisk[z];
-                Kripta temp = GetDataFromYahooFinZero(s);
-                if(temp.indicators!=null) Zerorisk.Add(temp);
-                if (temp.recommendedSymbols != null & (ZeroRisk.Count < 20))
-                {
-                    for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                    {
-                        if (!FindInString(ZeroRisk, temp.recommendedSymbols[i].symbol))
-                        {
-                            ZeroRisk.Add(temp.recommendedSymbols[i].symbol);
-                        }
-
-                    }
-                }
-                z++;
-            }
-            //TODOУбрать повторение
-            //сроки разные 
-
-
-            
-
-            Update.Content = "Обновлено";
-            Update.IsEnabled = false;
-
 
         }
-       private static Akcia GetDataFromYahooFinAKCIA(string name)
+
+        private void Download_BD()
+        {
+            
+        }
+
+        private static Akcia GetDataFromYahooFinAKCIA(string name)
         {
             string predict = String.Format("https://query1.finance.yahoo.com/v6/finance/recommendationsbysymbol/{0}", name);
             string recomendation = String.Format("https://query1.finance.yahoo.com/v11/finance/quoteSummary/{0}?lang=en&region=US&modules=financialData", name);
@@ -450,7 +468,16 @@ public partial class MainWindow : Window
                                     ak.indicators = otv.chart.result[0].indicators;
                                     ak.meta = otv.chart.result[0].meta;
                                     ak.timestamp = otv.chart.result[0].timestamp;
-                                    
+                                    if (otv.chart.result[0].indicators.quote[0].close != null)
+                                    {
+                                        double median = 0;
+                                        for (int j = 0; j < otv.chart.result[0].indicators.quote[0].close.Length; j++)
+                                        {
+                                            median += otv.chart.result[0].indicators.quote[0].close[j];
+                                        }
+                                        ak.TargetPriceMean = median / otv.chart.result[0].indicators.quote[0].close.Length;
+                                    }
+
                                 } break;
 
                         }
@@ -615,6 +642,18 @@ public partial class MainWindow : Window
             maried = e.AddedItems[0].ToString();
         }
 
-        
+        private void slValue2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            
+        }
+
+        private void Srok_update_Click(object sender, RoutedEventArgs e)
+        {
+            Update.Visibility = Visibility.Visible;
+            Srok_panel.IsEnabled = true;
+            Update.Content = "Обновить базу знаний";
+            Srok_update.Visibility = Visibility.Hidden;
+            //Можно обновлять только индексы
+        }
     }
 }

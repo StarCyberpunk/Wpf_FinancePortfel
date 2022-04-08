@@ -15,30 +15,31 @@
         <TextBox Name="Old" HorizontalAlignment="Left" Height="19" Margin="185,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
         <TextBox Name="Sum" HorizontalAlignment="Left" Height="21" Margin="185,179,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
 
-        <Button x:Name="GoProgress" Content="Составить портфель" HorizontalAlignment="Left" Margin="446,303,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="GoProgress_Click"/>
+        <Button x:Name="GoProgress" Content="Составить портфель" HorizontalAlignment="Left" Margin="438,370,0,0" VerticalAlignment="Top" Height="142" Width="244" Click="GoProgress_Click"/>
         <Label Content="Ф.И.О" HorizontalAlignment="Left" Margin="219,47,0,0" VerticalAlignment="Top" Width="42" Height="25" RenderTransformOrigin="0.614,0.57"/>
         <Label Content="Возраст(лет)" HorizontalAlignment="Left" Margin="200,100,0,0" VerticalAlignment="Top" Width="84" Height="25" RenderTransformOrigin="0.476,0.522"/>
         <Label Content="Сумма инвестиций(руб)" HorizontalAlignment="Left" Margin="172,149,0,0" VerticalAlignment="Top" Width="141" Height="25" RenderTransformOrigin="0.476,0.522"/>
         <Label Content="Цель инвестирования" HorizontalAlignment="Left" Margin="176,214,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Доходность(%)" HorizontalAlignment="Left" Margin="194,333,0,0" VerticalAlignment="Top" Width="92" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Срочность(мес)" HorizontalAlignment="Left" Margin="194,401,0,0" VerticalAlignment="Top" Width="98" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <DockPanel VerticalAlignment="Top" Margin="0,363,832,0" HorizontalAlignment="Right" Width="256" Height="20">
+        <Label Content="Доходность(%)" HorizontalAlignment="Left" Margin="420,209,0,0" VerticalAlignment="Top" Width="92" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Срочность(мес)" HorizontalAlignment="Left" Margin="184,352,0,0" VerticalAlignment="Top" Width="98" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <DockPanel VerticalAlignment="Top" Margin="0,245,548,0" HorizontalAlignment="Right" Width="256" Height="20">
             <TextBox Name="Doxod" Text="{Binding Value, ElementName=slValue1, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24" />
-            <Slider Maximum="95" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200"  />
+            <Slider  Maximum="95" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200"  />
         </DockPanel>
-        <DockPanel VerticalAlignment="Top" Margin="0,431,830,0" HorizontalAlignment="Right" Width="256" Height="20">
-            <TextBox Name="Srok" Text="{Binding Value, ElementName=slValue2, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24"  />
-            <Slider Maximum="24" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slValue2" Height="39" Width="200" />
+        <DockPanel x:Name="Srok_panel" VerticalAlignment="Top" Margin="0,381,839,0" HorizontalAlignment="Right" Width="256" Height="20">
+            <TextBox Name="Srok"  Text="{Binding Value, ElementName=slValue2, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24"  />
+            <Slider  Maximum="24" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slValue2" Height="39" Width="200" ValueChanged="slValue2_ValueChanged" />
         </DockPanel>
         <Label Content="Ваш портфель" HorizontalAlignment="Left" Margin="761,34,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="Update" Content="Обновить данные" HorizontalAlignment="Left" Margin="446,414,0,0" VerticalAlignment="Top" Height="80" Width="205" Click="Update_Click"/>
+        <Button x:Name="Update" Content="Скачать данные" HorizontalAlignment="Left" Margin="113,418,0,0" VerticalAlignment="Top" Height="80" Width="254" Click="Update_Click"/>
         <Label Content="Социальный статус" HorizontalAlignment="Left" Margin="408,42,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Семейное положение" HorizontalAlignment="Left" Margin="408,100,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
-        <Label Content="Общая задолжность(руб)" HorizontalAlignment="Left" Margin="408,149,0,0" VerticalAlignment="Top" Width="149" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Семейное положение" HorizontalAlignment="Left" Margin="408,99,0,0" VerticalAlignment="Top" Width="132" Height="25" RenderTransformOrigin="0.476,0.522"/>
+        <Label Content="Общая задолжность(руб)" HorizontalAlignment="Left" Margin="419,151,0,0" VerticalAlignment="Top" Width="149" Height="25" RenderTransformOrigin="0.476,0.522"/>
         <ComboBox x:Name="CeLInvest" HorizontalAlignment="Left" Margin="135,244,0,0" VerticalAlignment="Top" Width="210" SelectionChanged="ComboBox_SelectionChangedCel" SelectedIndex="0"/>
         <ComboBox x:Name="SocialStatus" HorizontalAlignment="Left" Margin="419,72,0,0" VerticalAlignment="Top" Width="162" SelectionChanged="ComboBox_SelectionChangedSocial" IsReadOnly="True" SelectedIndex="0"/>
-        <ComboBox x:Name="Maried" HorizontalAlignment="Left" Margin="420,124,0,0" VerticalAlignment="Top" Width="161" SelectionChanged="ComboBox_SelectionChangedMaried" SelectedIndex="0"/>
+        <ComboBox x:Name="Maried" HorizontalAlignment="Left" Margin="417,122,0,0" VerticalAlignment="Top" Width="161" SelectionChanged="ComboBox_SelectionChangedMaried" SelectedIndex="0"/>
         <TextBox x:Name="Zadol" HorizontalAlignment="Left" Height="21" Margin="438,179,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="119"/>
+        <Button x:Name="Srok_update" Visibility="Hidden"  Content="Изменить сроки" HorizontalAlignment="Left" Height="80" Margin="113,418,0,0" VerticalAlignment="Top" Width="254" Click="Srok_update_Click"/>
 
     </Grid>
 </Window>
