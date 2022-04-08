@@ -121,21 +121,7 @@ public partial class MainWindow : Window
             {
                 correct = false;
             }
-            if (srok < 6)
-            {
-                range = "6mo";
-                interval = "1d";
-            }
-            else if (srok >= 6 && srok <= 12)
-            {
-                range = "1y";
-                interval = "1wk";
-            }
-            else if (srok > 12 && srok < 24)
-            {
-                range = "5y";
-                interval = "1mo";
-            }
+            
 
             if (cel == "Сбережение") { cell = 1; }
             else if (cel == "Максимальный процент дохода") { cell = 3; }
@@ -237,7 +223,27 @@ public partial class MainWindow : Window
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            
+            int srok = Int32.Parse(Srok.Text);
+            if (srok < 6)
+            {
+                range = "6mo";
+                interval = "1d";
+            }
+            else if (srok >= 6 && srok <= 12)
+            {
+                range = "1y";
+                interval = "1wk";
+            }
+            else if (srok > 12 && srok < 24)
+            {
+                range = "5y";
+                interval = "1mo";
+            }
+            if (srok == 0)
+            {
+                MessageBox.Show("Введите срочность");
+            }
+            else { 
             List<string> BlueAct = new List<string>();
             BlueAct.Add("AAPL");
             BlueAct.Add("JNJ");
@@ -379,7 +385,7 @@ public partial class MainWindow : Window
 
             Update.Content = "Обновлено";
             Update.IsEnabled = false;
-
+            }
 
         }
        private static Akcia GetDataFromYahooFinAKCIA(string name)
@@ -450,7 +456,15 @@ public partial class MainWindow : Window
                                     ak.indicators = otv.chart.result[0].indicators;
                                     ak.meta = otv.chart.result[0].meta;
                                     ak.timestamp = otv.chart.result[0].timestamp;
-                                    
+                                    if (otv.chart.result[0].indicators.quote[0].close != null) { 
+                                    double median = 0;
+                                    for (int j = 0; j < otv.chart.result[0].indicators.quote[0].close.Length; j++)
+                                    {
+                                        median += otv.chart.result[0].indicators.quote[0].close[j];
+                                    }
+                                    ak.TargetPriceMean = median / otv.chart.result[0].indicators.quote[0].close.Length;
+                                    }
+
                                 } break;
 
                         }

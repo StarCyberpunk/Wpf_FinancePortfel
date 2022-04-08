@@ -334,6 +334,7 @@ namespace WpfKurs
             }
             portfel2 += String.Format("\n{0}", ResRisk);
             portfel2 += "\n\n";
+             i = 0;
             while (i < ResultRisk.Count - 1)
             {
 
