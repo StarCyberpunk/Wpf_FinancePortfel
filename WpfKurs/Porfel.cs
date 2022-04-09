@@ -133,6 +133,7 @@ namespace WpfKurs
             double countdoxod = 0;
             while (moneyAkcii > 0)
             {
+                
                 if (AkciaList.Count == 0) break;
                 if (AkciaList[i].TargetPriceMean*100/ AkciaList[i].CurrentPrice-100 > doxod) {
                     if (moneyAkcii - AkciaList[i].CurrentPrice < 0) break;
@@ -142,7 +143,7 @@ namespace WpfKurs
                     countdoxod += 1;
                 }
                 i++;
-                if (i >= AkciaList.Count) i = 0;
+                if (i >= AkciaList.Count) { i = 0; if (moneyAkcii == money * procAkc) break; }
                 
             }
              
@@ -157,10 +158,10 @@ namespace WpfKurs
                     
                 
                 i++;
-                if (i >= RiskZero.Count) i = 0;
+                if (i >= RiskZero.Count){ i = 0; if(moneyZero==money*procZero) break; }
                 
             }
-            obdoxod /= countdoxod;
+            /*obdoxod /= countdoxod;*/
 
         }
 
@@ -349,13 +350,18 @@ namespace WpfKurs
             
                 Akcia a=ResultAkcii[i];
                 ResRisk += a.RiskScore;
-                 portfel2 += String.Format(a.symbol+" "+Kol_voAkcia(a)+"шт "+"По цене {0} "+"Максимальная прибыль(%){1}"+"\n"+"Минимальная прибыль:{2}\n", Math.Round(a.CurrentPrice,2),Math.Round( a.TargetPriceMean * 100 / a.CurrentPrice - 100, 2),Math.Round(a.NormaPriboli,2));
+                    double min_prib = Math.Round(a.NormaPriboli, 2);
+                    double max_prib = Math.Round(a.TargetPriceMean * 100 / a.CurrentPrice - 100, 2);
+                    if (min_prib > max_prib) { double temp = max_prib;max_prib = min_prib; min_prib = temp; }
+                 portfel2 += String.Format(a.symbol+" "+Kol_voAkcia(a)+"шт "+"По цене {0} "+"Максимальная прибыль(%){1}"+"\n"+"Минимальная прибыль:{2}\n",a.CurrentPrice, max_prib,min_prib);
                 i++;
             }
             portfel2 += String.Format("\n Примерный риск:{0}",Math.Round( ResRisk/i,2));
+                //если 1 акция в портфеле риск дожен быть больше
+                //Выплата мин и макс время
             portfel2 += "\n\n";
             }
-            else { portfel2 += String.Format("Нет акций с данной доходностью"); }
+            else { portfel2 += String.Format("\nНет акций с данной доходностью"); }
             if (ResultRisk.Count!=0) { 
                 portfel2 += String.Format(" Советуем купить эти фонды/металлы :\n");
             i = 0;

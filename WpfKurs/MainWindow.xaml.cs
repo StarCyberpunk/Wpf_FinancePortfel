@@ -58,6 +58,7 @@ public partial class MainWindow : Window
 
         private void GoProgress_Click(object sender, RoutedEventArgs e)
         {
+            
             Output.Text = "";
             string name = FIO.Text;
             int money = 0;
@@ -219,9 +220,9 @@ public partial class MainWindow : Window
             {
                 MessageBox.Show("Проверьте корректность данных");
             }
-            
+                
         }
-        //TODO Проверка на нулевые и на неправильные данные 
+       
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
@@ -229,27 +230,37 @@ public partial class MainWindow : Window
             int srok = Int32.Parse(Srok.Text);
             Srokk = srok;
             //Настроить тонко сроки
-            if (srok > 0 && srok < 6)
-            {
-                range = "6mo";
-                interval = "1d";
-            }
-            else if (srok >= 6 && srok <= 12)
-            {
-                range = "1y";
-                interval = "1wk";
-            }
-            else if (srok > 12 && srok < 24)
-            {
-                range = "5y";
-                interval = "1mo";
-            }
             if (srok == 0)
             {
                 MessageBox.Show("Введите срочность");
             }
             else
             {
+                if (srok == 1)
+                {
+                    range = "1mo";
+                    interval = "1d";
+                }
+                if (srok > 1 && srok <= 3)
+                {
+                    range = "3mo";
+                    interval = "1d";
+                }
+                else if (srok > 3 && srok <= 6)
+                {
+                    range = "6mo";
+                    interval = "1d";
+                }
+                else if (srok > 6 && srok <= 12)
+                {
+                    range = "1y";
+                    interval = "1wk";
+                }
+                else if (srok > 12 && srok < 24)
+                {
+                    range = "5y";
+                    interval = "1mo";
+                }
                 MessageBox.Show("Скачивание данных может занять до 5-х минут");
                 List<string> BlueAct = new List<string>();
                 BlueAct.Add("AAPL");
@@ -389,7 +400,7 @@ public partial class MainWindow : Window
                 Update.Content = "Скачать";
                 Update.Visibility = Visibility.Hidden;
                 Srok_panel.IsEnabled = false;
-                Srok_update.Visibility = Visibility.Visible;
+                
             }
             
 
