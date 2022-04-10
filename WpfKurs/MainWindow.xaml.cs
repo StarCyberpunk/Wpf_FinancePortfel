@@ -398,6 +398,7 @@ public partial class MainWindow : Window
                     z++;
                 }
                 Update.Content = "Скачать";
+                Srok_update.Visibility = Visibility.Visible;
                 Update.Visibility = Visibility.Hidden;
                 Srok_panel.IsEnabled = false;
                 

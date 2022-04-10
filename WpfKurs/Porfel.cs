@@ -21,8 +21,8 @@ namespace WpfKurs
         public static double ResRisk;
         public static Type tipPortfel;
         public static string Name;
-
-        //TODO сроки и доходность
+        public static int Zadol;
+        //TODO задолжность
 
         public Porfel(List<Akcia> Akcii,  List<Kripta> Zerorisk,string name ,
         int zadol,
@@ -31,6 +31,7 @@ namespace WpfKurs
         int srok,int doxod)
         {
             tipPortfel = tipPot;
+            Zadol = zadol;
             AkciaList = new List<Akcia>();
             RiskZero = new List<Kripta>();
             ResultAkcii = new List<Akcia>();
@@ -128,7 +129,7 @@ namespace WpfKurs
 
             double moneyAkcii = money * procAkc;
             int i = 0;
-            //доходность либо по raznica либо по норме прибыли
+            
             double obdoxod = 0;
             double countdoxod = 0;
             while (moneyAkcii > 0)
@@ -344,22 +345,27 @@ namespace WpfKurs
         {
             string portfel2 = "";
             int i = 0;
+            double zarabotokMax = 0;
+            double zarbotokMin = 0;
             if (ResultAkcii.Count != 0) { 
             portfel2 += String.Format("Имя:{0}\n Советуем купить акции данных компаний:\n",Name);
             while(i < ResultAkcii.Count-1) {
             
                 Akcia a=ResultAkcii[i];
                 ResRisk += a.RiskScore;
+                    int kol_vo = Kol_voAkcia(a);
                     double min_prib = Math.Round(a.NormaPriboli, 2);
                     double max_prib = Math.Round(a.TargetPriceMean * 100 / a.CurrentPrice - 100, 2);
+                    zarabotokMax += a.Raznica * kol_vo;
+                    zarbotokMin += a.CurrentPrice * kol_vo*a.NormaPriboli/100;
                     if (min_prib > max_prib) { double temp = max_prib;max_prib = min_prib; min_prib = temp; }
-                 portfel2 += String.Format(a.symbol+" "+Kol_voAkcia(a)+"шт "+"По цене {0} "+"Максимальная прибыль(%){1}"+"\n"+"Минимальная прибыль:{2}\n",a.CurrentPrice, max_prib,min_prib);
+                 portfel2 += String.Format(a.symbol+" "+kol_vo+"шт "+"По цене {0} "+"Максимальная прибыль(%){1}"+"\n"+"Минимальная прибыль:{2}\n",Math.Round( a.CurrentPrice,2), max_prib,min_prib);
                 i++;
             }
-            portfel2 += String.Format("\n Примерный риск:{0}",Math.Round( ResRisk/i,2));
-                //если 1 акция в портфеле риск дожен быть больше
-                //Выплата мин и макс время
-            portfel2 += "\n\n";
+            portfel2 += String.Format("\n Примерный риск:{0}",Math.Round(GetRisk(ResRisk, i),2));
+                
+                //Выплата задолжнсти по времени сколько займет 
+            portfel2 += "\n";
             }
             else { portfel2 += String.Format("\nНет акций с данной доходностью"); }
             if (ResultRisk.Count!=0) { 
@@ -367,19 +373,43 @@ namespace WpfKurs
             i = 0;
             while (i < ResultRisk.Count - 1)
             {
-
+                    
                 Kripta a = ResultRisk[i];
-                ResRisk = 5;
-                portfel2 += String.Format(a.symbol + " " + Kol_voZero(a) + "шт " + "По цене {0} " + " Примерная прибыль(%):{1}" + "\n", Math.Round(a.CurrentPrice,2), Math.Round(a.TargetMedian * 100 / a.CurrentPrice - 100, 2));
+                    int kol_voZero = Kol_voZero(a);
+                    ResRisk = 5;
+                    zarabotokMax += a.Raznicaa * kol_voZero;
+                    
+                    portfel2 += String.Format(a.symbol + " " + kol_voZero + "шт " + "По цене {0} " + " Примерная прибыль(%):{1}" + "\n", Math.Round(a.CurrentPrice,2), Math.Round(a.TargetMedian * 100 / a.CurrentPrice - 100, 2));
                 i++;
             }
 
-            ResRisk /= ResultRisk.Count;
-            
-            portfel2 += String.Format("\n Примерный риск:{0}",ResRisk/i);
+            portfel2 += String.Format("\n Примерный риск:{0}", Math.Round(GetRisk(ResRisk,i),2));
+                }
+            portfel2 += String.Format("\n Примерный заработок: от {0} до {1} ", Math.Round(zarbotokMin, 2), Math.Round(zarabotokMax, 2));
+            if (Zadol > 0) portfel2 += String.Format("\n Общая задолжность уменьшится за данный период уменьшается: от {0} до {1}", GetZadol(Zadol, zarbotokMin), GetZadol(Zadol, zarabotokMax));
+
+
+            return portfel2;
+        }
+        private static double GetZadol(int z,double zar)
+        {
+            if(z-zar<0) return 0;
+            else
+            {
+                return z - zar;
+            }
+        }
+        private static double GetRisk(double Risk,int i)
+        {
+            switch (i)
+            {
+                case 0: return 0; break;
+                    case 1: return Risk*3/i;break;
+                    case 2: return Risk*2/i;break;
+                    case 3: return Risk*1.5/i;break;
+                    default : return Risk/i;
             }
             
-            return portfel2;
         }
     }
 }
