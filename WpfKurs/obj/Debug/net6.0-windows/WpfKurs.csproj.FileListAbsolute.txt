@@ -21,3 +21,26 @@ C:\Users\notma\source\repos\WpfKurs\WpfKurs\obj\Debug\net6.0-windows\refint\WpfK
 C:\Users\notma\source\repos\WpfKurs\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.pdb
 C:\Users\notma\source\repos\WpfKurs\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.genruntimeconfig.cache
 C:\Users\notma\source\repos\WpfKurs\WpfKurs\obj\Debug\net6.0-windows\ref\WpfKurs.dll
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\bin\Debug\net6.0-windows\WpfKurs.exe
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\bin\Debug\net6.0-windows\WpfKurs.deps.json
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\bin\Debug\net6.0-windows\WpfKurs.runtimeconfig.json
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\bin\Debug\net6.0-windows\WpfKurs.dll
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\bin\Debug\net6.0-windows\WpfKurs.pdb
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.csproj.AssemblyReference.cache
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs_MarkupCompile.cache
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs_MarkupCompile.lref
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\MainWindow.baml
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.g.resources
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.AssemblyInfoInputs.cache
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.AssemblyInfo.cs
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.csproj.CoreCompileInputs.cache
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.csproj.CopyComplete
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.dll
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\refint\WpfKurs.dll
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.pdb
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\WpfKurs.genruntimeconfig.cache
+C:\Users\БЛэкс\Desktop\5 cem\PK\Wpf_FinancePortfel\WpfKurs\obj\Debug\net6.0-windows\ref\WpfKurs.dll
