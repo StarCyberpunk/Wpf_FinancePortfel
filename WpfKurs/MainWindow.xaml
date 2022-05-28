@@ -24,7 +24,7 @@
         <Label Content="Срочность(мес)" HorizontalAlignment="Left" Margin="184,352,0,0" VerticalAlignment="Top" Width="98" Height="25" RenderTransformOrigin="0.476,0.522"/>
         <DockPanel VerticalAlignment="Top" Margin="0,245,548,0" HorizontalAlignment="Right" Width="256" Height="20">
             <TextBox Name="Doxod" Text="{Binding Value, ElementName=slValue1, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24" />
-            <Slider  Maximum="95" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200"  />
+            <Slider Minimum="7" Maximum="70" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slValue1" Height="39" Width="200"  />
         </DockPanel>
         <DockPanel x:Name="Srok_panel" VerticalAlignment="Top" Margin="0,381,839,0" HorizontalAlignment="Right" Width="256" Height="20">
             <TextBox Name="Srok"  Text="{Binding Value, ElementName=slValue2, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="38" Height="24"  />

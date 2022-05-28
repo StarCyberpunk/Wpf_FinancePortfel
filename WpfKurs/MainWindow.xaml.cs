@@ -38,6 +38,8 @@ public partial class MainWindow : Window
         public static string maried { get; set; }
         public static string range { get; set; }
         public static string interval { get; set; }
+      
+
         //Курс доллара
         public MainWindow()
         {
@@ -68,9 +70,11 @@ public partial class MainWindow : Window
             int socia = 0;
             int marie = 0;
             bool correct = true;
+            int summator = 0;
             
             int doxod = Int32.Parse(Doxod.Text);
             int srok = Int32.Parse(Srok.Text);
+            #region Check
             
 
             try
@@ -124,92 +128,84 @@ public partial class MainWindow : Window
             {
                 correct = false;
             }
-            
+            #endregion
+            #region VVOD
 
-            if (cel == "Сбережение") { cell = 1; }
-            else if (cel == "Максимальный процент дохода") { cell = 3; }
-            else if (cel == "Стабильный рост") { cell = 2; }
-
-
-            if (social == "Высокий достаток") { socia = 3; }
-            else if (social == "Средний достаток") { socia = 2; }
-            else if (social == "Низкий достаток") { socia = 1; }
-
-
-            if (maried == "Замужем/Женат") { marie = 3; }
-            else if (maried == "Имеется отношения") { marie = 2; }
-            else if (maried == "Одинок") { marie = 1; }
-
-            if (old < 50) { 
-            if (cell == 1)
+            if (old >= 50)
             {
-                if (socia == 1)
-                {
-                    if (marie == 1) { tipPortfel = Type.konserv2; }
-                    else if (marie == 2) { tipPortfel = Type.konserv2; }
-                    else if (marie == 3) { tipPortfel = Type.konserv3; }
-                }
-                else if (socia == 2)
-                {
-                    if (marie == 1) { tipPortfel = Type.konserv1; }
-                    else if (marie == 2) { tipPortfel = Type.konserv1; }
-                    else if (marie == 3) { tipPortfel = Type.konserv2; }
-                }
-                else if (socia == 3)
-                {
-                    if (marie == 1) { tipPortfel = Type.konserv1; }
-                    else if (marie == 2) { tipPortfel = Type.konserv1; }
-                    else if (marie == 3) { tipPortfel = Type.konserv1; }
-                }
+                summator += 1;
             }
-            else if (cell == 2)
+            else if(old > 18 || old < 50)
             {
-                if (socia == 1)
-                {
-                    if (marie == 1) { tipPortfel = Type.balance2; }
-                    else if (marie == 2) { tipPortfel = Type.balance2; }
-                    else if (marie == 3) { tipPortfel = Type.balance3; }
-                }
-                else if (socia == 2)
-                {
-                    if (marie == 1) { tipPortfel = Type.balance1; }
-                    else if (marie == 2) { tipPortfel = Type.balance1; }
-                    else if (marie == 3) { tipPortfel = Type.balance2; }
-                }
-                else if (socia == 3)
-                {
-                    if (marie == 1) { tipPortfel = Type.balance1; }
-                    else if (marie == 2) { tipPortfel = Type.balance1; }
-                    else if (marie == 3) { tipPortfel = Type.balance1; }
-                }
+                summator += 5;
             }
-            else if (cell == 3)
+
+            if (cel == "Сбережение") { summator -= 2; }
+            else if (cel == "Максимальный процент дохода") { summator += 3; }
+            else if (cel == "Стабильный рост") { summator += 1; }
+
+
+            if (social == "Высокий достаток") { summator += 5; }
+            else if (social == "Средний достаток") { summator += 3; }
+            else if (social == "Низкий достаток") { summator += 1; }
+
+
+            if (maried == "Замужем/Женат") { summator += 1; }
+            else if (maried == "Имеется отношения") { summator += 3; }
+            else if (maried == "Одинок") { summator += 5; }
+            if (zadol != 0)
             {
-                if (socia == 1)
-                {
-                    if (marie == 1) { tipPortfel = Type.agresive2; }
-                    else if (marie == 2) { tipPortfel = Type.agresive2; }
-                    else if (marie == 3) { tipPortfel = Type.agresive3; }
-                }
-                else if (socia == 2)
-                {
-                    if (marie == 1) { tipPortfel = Type.agresive1; }
-                    else if (marie == 2) { tipPortfel = Type.agresive1; }
-                    else if (marie == 3) { tipPortfel = Type.agresive2; }
-                }
-                else if (socia == 3)
-                {
-                    if (marie == 1) { tipPortfel = Type.agresive1; }
-                    else if (marie == 2) { tipPortfel = Type.agresive1; }
-                    else if (marie == 3) { tipPortfel = Type.agresive1; }
-                }
-            }
+                summator += 1;
             }
             else
             {
-                tipPortfel = Type.konserv3;
+                summator += 5;
             }
 
+            
+            if (srok >= 1 && srok <= 3)
+            {
+                summator += 5;
+            }
+            else if (srok > 3 && srok <= 12)
+            {
+                summator += 3;
+            }
+            
+            else if (srok > 12 && srok < 24)
+            {
+                summator += 1;
+            }
+            #endregion
+            if (doxod / (summator * 2.5) <= 1.1)
+            {
+                if (MessageBox.Show("Проверьте риски", String.Format("Согласны ли вы с риском в {0} ?",summator*2.5), MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    MessageBox.Show("Поменяйте доходность или срок");
+                    correct = false;
+                }
+                else
+                {
+                    if (summator >= 3 && summator <= 5) { tipPortfel = Type.konserv3; }
+                    else if (summator >= 6 && summator <= 8) { tipPortfel = Type.konserv2; }
+                    else if (summator >= 9 && summator <= 11) { tipPortfel = Type.konserv1; }
+                    else if (summator >= 12 && summator <= 14) { tipPortfel = Type.balance3; }
+                    else if (summator >= 15 && summator <= 17) { tipPortfel = Type.balance2; }
+                    else if (summator >= 18 && summator <= 20) { tipPortfel = Type.balance1; }
+                    else if (summator >= 21 && summator <= 23) { tipPortfel = Type.agresive3; }
+                    else if (summator >= 24 && summator <= 26) { tipPortfel = Type.agresive2; }
+                    else if (summator >= 26 && summator <= 28) { tipPortfel = Type.agresive1; }
+                    MessageBox.Show("Тип портфеля " + tipPortfel.ToString());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Поменяйте доходность или срок");
+                correct = false;
+            }
+            
+
+           
 
             if ( correct)
             {
@@ -288,129 +284,75 @@ public partial class MainWindow : Window
                 ZeroRisk.Add("^RUT");
                 ZeroRisk.Add("^GSPC");
                 ZeroRisk.Add("^DJI");
-                int z = 0;
+                //ASync not working
+                AddNewAkciiAndAddToList(BlueAct);
+                AddNewAkciiAndAddToList(RiskAct);
+                AddZeroRiskAndAddToLisk(ZeroRisk);
 
-                while (true)
-                {
-                    if (z == 20) { break; }
-                    string s = BlueAct[z];
-                    Akcia temp = GetDataFromYahooFinAKCIA(s);
-                    if (temp.RiskScore != 0 & temp.TargetPriceMedian != 0)
-                    {
-                        Akcii.Add(temp);
-                    }
-
-                    if (temp.recommendedSymbols != null & (BlueAct.Count < 20))
-                    {
-                        for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                        {
-                            if (!FindInString(BlueAct, temp.recommendedSymbols[i].symbol))
-                            {
-                                BlueAct.Add(temp.recommendedSymbols[i].symbol);
-                            }
-
-                        }
-                    }
-                    z++;
-                }
-                z = 0;
-                while (true)
-                {
-                    if (z == 20) { break; }
-                    string s = RiskAct[z];
-                    Akcia temp = GetDataFromYahooFinAKCIA(s);
-                    if (temp.RiskScore != 0 & temp.TargetPriceMedian != 0)
-                    {
-                        Akcii.Add(temp);
-                    }
-                    if (temp.recommendedSymbols != null & (RiskAct.Count < 20))
-                    {
-                        for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                        {
-                            if (!FindInString(RiskAct, temp.recommendedSymbols[i].symbol))
-                            {
-                                RiskAct.Add(temp.recommendedSymbols[i].symbol);
-                            }
-
-                        }
-                    }
-                    z++;
-                }
-
-                z = 0;
-                /* while (true)
-                 {
-                     if (z == 20) { break; }
-                     string s = Kripto[z];
-                     Kripta temp = GetDataFromYahooFinZero(s);
-                     Kripta.Add(temp);
-                     if (temp.recommendedSymbols != null & (Kripto.Count < 20))
-                     {
-                         for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                         {
-                             if (!FindInString(Kripto, temp.recommendedSymbols[i].symbol))
-                             {
-                                 Kripto.Add(temp.recommendedSymbols[i].symbol);
-                             }
-
-                         }
-                     }
-                     z++;
-                 }
-                 z= 0;
-                 while (true)
-                 {
-                     if (z == 20) { break; }
-                     string s = KriptoHighRisk[z];
-                     Kripta temp = GetDataFromYahooFinZero(s);
-                     KriptaRisk.Add(temp);
-                     if (temp.recommendedSymbols != null & (KriptoHighRisk.Count < 20))
-                     {
-                         for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                         {
-                             if (!FindInString(KriptoHighRisk, temp.recommendedSymbols[i].symbol))
-                             {
-                                 KriptoHighRisk.Add(temp.recommendedSymbols[i].symbol);
-                             }
-
-                         }
-                     }
-                     z++;
-                 }*/
-                z = 0;
-                while (true)
-                {
-                    if (z == 20) { break; }
-                    string s = ZeroRisk[z];
-                    Kripta temp = GetDataFromYahooFinZero(s);
-                    if (temp.indicators != null) Zerorisk.Add(temp);
-                    if (temp.recommendedSymbols != null & (ZeroRisk.Count < 20))
-                    {
-                        for (int i = 0; i < temp.recommendedSymbols.Length; i++)
-                        {
-                            if (!FindInString(ZeroRisk, temp.recommendedSymbols[i].symbol))
-                            {
-                                ZeroRisk.Add(temp.recommendedSymbols[i].symbol);
-                            }
-
-                        }
-                    }
-                    z++;
-                }
                 Update.Content = "Скачать";
                 Srok_update.Visibility = Visibility.Visible;
                 Update.Visibility = Visibility.Hidden;
                 Srok_panel.IsEnabled = false;
-                
+
             }
-            
+
 
         }
 
-        private void Download_BD()
+        protected  int AddZeroRiskAndAddToLisk(List<string> ZeroRisk)
         {
-            
+            int z = 0;
+            while (true)
+            {
+                if (z == 20) { break; }
+                string s = ZeroRisk[z];
+                Kripta temp = GetDataFromYahooFinZero(s);
+                if (temp.indicators != null) Zerorisk.Add(temp);
+                if (temp.recommendedSymbols != null & (ZeroRisk.Count < 20))
+                {
+                    for (int i = 0; i < temp.recommendedSymbols.Length; i++)
+                    {
+                        if (!FindInString(ZeroRisk, temp.recommendedSymbols[i].symbol))
+                        {
+                            ZeroRisk.Add(temp.recommendedSymbols[i].symbol);
+                        }
+
+                    }
+                }
+                z++;
+            }return 0;
         }
+
+        protected  int AddNewAkciiAndAddToList(List<string> BlueAct)
+        {
+            int z = 0;
+
+            while (true)
+            {
+                if (z == 20) { break; }
+                string s = BlueAct[z];
+                Akcia temp = GetDataFromYahooFinAKCIA(s);
+                if (temp.RiskScore != 0 & temp.TargetPriceMedian != 0)
+                {
+                    Akcii.Add(temp);
+                }
+
+                if (temp.recommendedSymbols != null & (BlueAct.Count < 20))
+                {
+                    for (int i = 0; i < temp.recommendedSymbols.Length; i++)
+                    {
+                        if (!FindInString(BlueAct, temp.recommendedSymbols[i].symbol))
+                        {
+                            BlueAct.Add(temp.recommendedSymbols[i].symbol);
+                        }
+
+                    }
+                }
+                z++;
+            } return 0;
+        }
+
+        
 
         private static Akcia GetDataFromYahooFinAKCIA(string name)
         {
